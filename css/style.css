@@ -1,0 +1,14 @@
+.bgcolor{
+    background-image: linear-gradient(#00C9FE,#8A089E);
+    /* height: 100vh; */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.bgCity{
+    background-image: linear-gradient(#EFEFEF,#048EC2);
+}
+.color-font{
+    color: white;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
