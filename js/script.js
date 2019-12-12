@@ -38,7 +38,7 @@ getW.addEventListener('click', function (e) {
     let urltemp_3 = "&units=imperial";
     let urlkey_4 = "&appid=654ebb3710a1c1d07dfb4af00b7ba46d";
     let foreCast = urlpt_1 + urlpt_2 + urltemp_3 + urlkey_4;
-    fivedayCast(fullUrl);
+    fivedayCast(foreCast);
 
 
     if(inputCity.value = null){
@@ -65,7 +65,7 @@ inputCity.addEventListener('keypress', function (e) {
         let urltemp_3 = "&units=imperial";
         let urlkey_4 = "&appid=654ebb3710a1c1d07dfb4af00b7ba46d";
         let foreCast = urlpt_1 + urlpt_2 + urltemp_3 + urlkey_4;
-        fivedayCast(fullUrl);
+        fivedayCast(foreCast);
         if(inputCity.value = ""){
             alert("Enter a valid city");
         };        //saveData();
@@ -85,17 +85,17 @@ function fivedayCast(URL){
         if (this.readyState == 4 && this.status == 200) {
             let myArr = JSON.parse(this.responseText);
 
-            let obj = {
-                name:myArr.name,
-                temp:myArr.main.temp,
-                temp_min:myArr.main.temp_min,
-                temp_max:myArr.main.temp_max,
-                // weatherIcon:myArr.weather.icon
-                url: URL
-            }
-            forecastData.push(obj);
+            // let obj = {
+            //     name:myArr.name,
+            //     temp:myArr.main.temp,
+            //     temp_min:myArr.main.temp_min,
+            //     temp_max:myArr.main.temp_max,
+            //     // weatherIcon:myArr.weather.icon
+            //     url: URL
+            // }
+            //forecastData.push(obj);
             saveData();
-            forecastData(myArr);
+            getForecast(myArr);
         }
     };
     xmlhttp.open("GET", URL, true);
@@ -145,6 +145,8 @@ function getCity(URL) {
 
 function getForecast(info){
     console.log(info);
+    
+
 }
 
 function getWeather(info) {
@@ -212,4 +214,3 @@ function getWeather(info) {
 function saveData(){
     localStorage.setItem('ANAKIN',JSON.stringify(weatherData));
 }
- fivedayCast();
