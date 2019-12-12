@@ -41,8 +41,8 @@ if(localStorage.getItem('ANAKIN')){
     weatherData=JSON.parse(localStorage.getItem('ANAKIN'));
     //console.log(weatherData);
     getCity(weatherData[weatherData.length-1].url);
+    // fivedayCast(forecastData[forecastData.length-1,url]);
 }
-
 ////-------------------------------------------//
 //-------------Add Event Listeners------------//
 getW.addEventListener('click', function (e) {
@@ -93,9 +93,6 @@ inputCity.addEventListener('keypress', function (e) {
 
     }
 });
-
-
-
 
 //---------Load Your JSON Weather File--------//
 
@@ -162,6 +159,8 @@ function getCity(URL) {
     xmlhttp.send();
 }
 
+
+
 function getForecast(info){
     console.log(info);
     temp1.innerText=`Temperature: ${info.list[0].main.temp}`;
@@ -189,7 +188,6 @@ function getForecast(info){
     tempHigh5.innerText=info.list[33].main.temp_max;
     cityName5.innerText=`City: ${info.city.name}`;
 
-
 }
 
 function getWeather(info) {
@@ -211,7 +209,7 @@ function getWeather(info) {
         let day4Pick = document.getElementById('day4Pick');
         let day5Pick = document.getElementById('day5Pick');
         let day6Pick = document.getElementById('day6Pick');
-        
+    
     
         row.setAttribute('class','row');
         col1.setAttribute('class', 'col-lg-12 col-sm-12 border bgCity');
@@ -242,29 +240,6 @@ function getWeather(info) {
 
 
 }
-
-// function populateWeather(){
-
-//     // <div class="row">
-//     //             <div class="col-lg-12 col-sm-12">
-//     //                 <h1 class="border">
-//     //                     <div class="div bgCity">
-//     //                         Places You Have Looked at
-//     //                         <button type="button" class="btn btn-danger pt-3 float-right">delete</button>
-//     //                 </h1>
-//     //             </div>
-//     //         </div>
-
-//     populateW.innerHTML = '';
-//     let row = document.createElement('div');
-//     let col1 = document.createElement('div');
-//     let header1 = document.createElement('h1');
-//     let tempP = document.createElement('p');
-//     let tempL = document.createElement('p');
-//     let tempH = document.createElement('p');
-
-// }
-
 
 function saveData(){
     localStorage.setItem('ANAKIN',JSON.stringify(weatherData));
