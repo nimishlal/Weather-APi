@@ -1,12 +1,6 @@
 ///------load your variables for all to use-------//
-
 let getW = document.getElementById('loadWeather');
-// let url_pt1 = "https://api.openweathermap.org/data/2.5/weather?q="
-// // let url_city_pt2 = "tokyo";
-// let url_temp_pt3 = "&units=imperial";
-// let url_key_pt4 = "&appid=654ebb3710a1c1d07dfb4af00b7ba46d";
 let inputCity = document.getElementById('inputCity');
-// let fullUrl = url_pt1 + url_city_pt2 + url_temp_pt3 + url_key_pt4;
 let temp = document.getElementById('temp');
 let cityName = document.getElementById('cityName');
 let tempLow = document.getElementById('tempLow');
@@ -76,7 +70,6 @@ getW.addEventListener('click', function (e) {
     }
 
     let url_pt1 = "https://api.openweathermap.org/data/2.5/weather?q=";
-    //let url_city_pt2=inputCity.value;
     let url_temp_pt3 = "&units=imperial";
     let url_key_pt4 = "&appid=654ebb3710a1c1d07dfb4af00b7ba46d";
     let fullUrl = url_pt1 + url_city_pt2 + url_temp_pt3 + url_key_pt4;
@@ -118,9 +111,6 @@ function fivedayCast(URL) {
 
 function newCity(URL) {
     let xmlhttp = new XMLHttpRequest();
-    //Put your weather API URL and KEY here
-    //let url = "";
-
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             let myArr = JSON.parse(this.responseText);
@@ -141,7 +131,7 @@ function newCity(URL) {
     xmlhttp.send();
 }
 
-function newthingy(URL1, URL2) {
+function justCuz(URL1, URL2) {
     let xmlhttp2 = new XMLHttpRequest();
     xmlhttp2.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -165,8 +155,6 @@ function newthingy(URL1, URL2) {
 }
 function getCity(URL) {
     let xmlhttp = new XMLHttpRequest();
-    //Put your weather API URL and KEY here
-    //let url = "";
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -180,9 +168,6 @@ function getCity(URL) {
 
 function loadCast(URL) {
     let xmlhttp = new XMLHttpRequest();
-    //Put your weather API URL and KEY here
-    //let url = "";
-
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             let myArr = JSON.parse(this.responseText);
@@ -193,13 +178,10 @@ function loadCast(URL) {
     xmlhttp.send();
 }
 
-
 function getForecast(info) {
-//    console.log((info.list[0].dt_txt).spilt(" "));
 let dates = [];
- dates = info.list[0].dt_txt;//.spilt(" ");
+ dates = info.list[0].dt_txt;
 let date = dates.split(" ");
- //console.log(date[0]);//.split(" ");
     temp1.innerText = `Temperature: ${info.list[0].main.temp}`;
     tempLow1.innerText = `Min Temperature: ${info.list[0].main.temp_min}`;
     tempHigh1.innerText = `Max Temperature: ${info.list[0].main.temp_max}`;
@@ -224,14 +206,12 @@ let date = dates.split(" ");
     tempLow5.innerText = `Min Temperature: ${info.list[37].main.temp_min}`;
     tempHigh5.innerText = `Max Temperature:${info.list[37].main.temp_max}`;
     cityName5.innerText = `City: ${info.city.name}`;
-    //console.log(info.list[37].dt_txt.split(" ")[0])
 
     dateZone1.innerText = date[0];//info.list[0].dt_txt.spilt(" ");
     dateZone2.innerText=info.list[8].dt_txt.split(" ")[0];
     dateZone3.innerText=info.list[16].dt_txt.split(" ")[0];
     dateZone4.innerText=info.list[24].dt_txt.split(" ")[0];
     dateZone5.innerText=info.list[37].dt_txt.split(" ")[0];
-
 }
 
 function getWeather(info) {
@@ -256,7 +236,6 @@ function getWeather(info) {
         let day6Pick = document.getElementById('day6Pick');
         let displayButton = document.createElement('button');
 
-
         row.setAttribute('class', 'row');
         col1.setAttribute('class', 'col-lg-12 col-sm-12 border bgCity');
         deletebutton.setAttribute('class', 'btn btn-danger float-right mt-2')
@@ -270,39 +249,29 @@ function getWeather(info) {
         day5Pick.setAttribute('src', 'http://openweathermap.org/img/wn/' + info.weather[0].icon + '@2x.png');
         day6Pick.setAttribute('src', 'http://openweathermap.org/img/wn/' + info.weather[0].icon + '@2x.png');
 
-
         header1.innerText = `${info.name}`
-
         header1.innerText = weatherData[i].name + " Temperature: " + weatherData[i].temp + "°" + " " + weatherData[i].temp_min + " " + weatherData[i].temp_max;
         deletebutton.innerText = "Delete";
         displayButton.innerText = "Display Weather";
 
         displayButton.addEventListener('click', function (e) {
             console.log(forecastData);
-            newthingy(weatherData[i].url, forecastData[i].url);
+            justCuz(weatherData[i].url, forecastData[i].url);
         });
 
         deletebutton.addEventListener('click', function (e) {
             weatherData.splice(i, 1);
             forecastData.splice(i, 1);
-            localStorage.removeItem('Anakin');
             saveData();
             this.parentElement.parentElement.parentElement.remove();
         });
-        // let deleteHeader = document.getElementById('deleteHeader');
-        // deleteHeader.addEventListener('click',function(e){
-        //     deleteHeader.parentNode.removeChild(deleteHeader);
-        // });
+
         col1.appendChild(header1);
         header1.appendChild(deletebutton);
         header1.appendChild(displayButton);
         row.appendChild(col1);
-
-
         populateW.appendChild(row);
     }
-
-
 }
 
 function saveData() {
