@@ -39,16 +39,33 @@ let imgIcon = document.getElementById('imgIcon')
 
 if(localStorage.getItem('ANAKIN')){
     weatherData=JSON.parse(localStorage.getItem('ANAKIN'));
-    //console.log(weatherData);
+    console.log(weatherData);
     getCity(weatherData[weatherData.length-1].url);
-    // fivedayCast(forecastData[forecastData.length-1,url]);
+}
+if(localStorage.getItem('Vicodin')){
+    forecastData=JSON.parse(localStorage.getItem('Vicodin'));
+    console.log(forecastData);
+    loadCast(forecastData[forecastData.length-1].url);
 }
 ////-------------------------------------------//
 //-------------Add Event Listeners------------//
 getW.addEventListener('click', function (e) {
-    let getW = document.getElementById('loadWeather');
+     
+    if (weatherData.length > 0) {
+        for (let i = 0; i < weatherData.length; i++) {
+            if (weatherData[i].name === inputCity.value) {
+                alert("This city exist");
+                return;
+            } else {
+                url_city_pt2 = inputCity.value;
+            }
+        }
+    } 
+    else {
+        url_city_pt2 = inputCity.value;
+    }
+
     let url_pt1 = "https://api.openweathermap.org/data/2.5/weather?q=";
-    let url_city_pt2 = inputCity.value;
     let url_temp_pt3 = "&units=imperial";
     let url_key_pt4 = "&appid=654ebb3710a1c1d07dfb4af00b7ba46d";
     let fullUrl = url_pt1 + url_city_pt2 + url_temp_pt3 + url_key_pt4;
@@ -64,11 +81,6 @@ getW.addEventListener('click', function (e) {
     if(inputCity.value = null){
         alert("Enter a valid city");
     };
-    //saveData();
-    //console.log(getWeather);
-    //populateWeather();
-
-
 });
 
 inputCity.addEventListener('keypress', function (e) {
@@ -103,12 +115,9 @@ function fivedayCast(URL){
             let myArr = JSON.parse(this.responseText);
 
             let obj = {
-                name:myArr.name,
-                temp:myArr.list[0].main.temp,
-                temp_min:myArr.list[0].main.temp_low,
-                temp_max:myArr.list[0].main.temp_max,
                 url: URL
             }
+            console.log(obj);
             forecastData.push(obj);
             saveData();
             getForecast(myArr);
@@ -132,7 +141,6 @@ function newCity(URL) {
                 temp:myArr.main.temp,
                 temp_min:myArr.main.temp_min,
                 temp_max:myArr.main.temp_max,
-                // weatherIcon:myArr.weather.icon
                 url: URL
             }
             weatherData.push(obj);
@@ -159,42 +167,55 @@ function getCity(URL) {
     xmlhttp.send();
 }
 
+function loadCast(URL) {
+    let xmlhttp = new XMLHttpRequest();
+    //Put your weather API URL and KEY here
+    //let url = "";
+
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            let myArr = JSON.parse(this.responseText);
+            getForecast(myArr);
+        }
+    };
+    xmlhttp.open("GET", URL, true);
+    xmlhttp.send();
+}
 
 
 function getForecast(info){
     console.log(info);
     temp1.innerText=`Temperature: ${info.list[0].main.temp}`;
-    tempLow1.innerText=info.list[0].main.temp_min;
-    tempHigh1.innerText=info.list[0].main.temp_max;
+    tempLow1.innerText=`Min Temperature: ${info.list[0].main.temp_min}`;
+    tempHigh1.innerText=`Max Temperature: ${info.list[0].main.temp_max}`;
     cityName1.innerText=`City: ${info.city.name}`;
 
     temp2.innerText=`Temperature: ${info.list[7].main.temp}`;
-    tempLow2.innerText=info.list[7].main.temp_min;
-    tempHigh2.innerText=info.list[7].main.temp_max;
+    tempLow2.innerText=`Min Temperature: ${info.list[7].main.temp_min}`;
+    tempHigh2.innerText=`Max Temperature: ${info.list[7].main.temp_max}`;
     cityName2.innerText=`City: ${info.city.name}`;
 
     temp3.innerText=`Temperature: ${info.list[14].main.temp}`;
-    tempLow3.innerText=info.list[14].main.temp_min;
-    tempHigh3.innerText=info.list[14].main.temp_max;
+    tempLow3.innerText=`Min Temperature: ${info.list[14].main.temp_min}`;
+    tempHigh3.innerText=`Max Temperature:${info.list[14].main.temp_max}`;
     cityName3.innerText=`City: ${info.city.name}`;
 
     temp4.innerText=`Temperature: ${info.list[21].main.temp}`;
-    tempLow4.innerText=info.list[21].main.temp_min;
-    tempHigh4.innerText=info.list[21].main.temp_max;
+    tempLow4.innerText=`Min Temperature: ${info.list[21].main.temp_min}`;
+    tempHigh4.innerText=`Max Temperature:${info.list[21].main.temp_max}`;
     cityName4.innerText=`City: ${info.city.name}`;
 
-    temp5.innerText=`Temperature: ${info.list[33].main.temp}`;
-    tempLow5.innerText=info.list[33].main.temp_min;
-    tempHigh5.innerText=info.list[33].main.temp_max;
+    temp5.innerText=`Temperature: ${info.list[37].main.temp}`;
+    tempLow5.innerText=`Min Temperature: ${info.list[37].main.temp_min}`;
+    tempHigh5.innerText=`Max Temperature:${info.list[37].main.temp_max}`;
     cityName5.innerText=`City: ${info.city.name}`;
-
 }
 
 function getWeather(info) {
     console.log(info);
     temp.innerText=`Temperature: ${info.main.temp}`;
-    tempLow.innerText=info.main.temp_min;
-    tempHigh.innerText=info.main.temp_max;
+    tempLow.innerText=`Min Temperature: ${info.main.temp_min}`;
+    tempHigh.innerText=`Max Temperature: ${info.main.temp_max}`;
     cityName.innerText=`City: ${info.name}`;
 
     populateW.innerHTML = '';
@@ -226,9 +247,6 @@ function getWeather(info) {
     
         header1.innerText=weather.name+" Temperature: "+weather.temp+"°"+" "+weather.temp_min+" "+weather.temp_max;
         button.innerText="Delete";
-        header1.addEventListener('click',function(e){
-
-        })
     
         col1.appendChild(header1);
         header1.appendChild(button);
@@ -243,4 +261,5 @@ function getWeather(info) {
 
 function saveData(){
     localStorage.setItem('ANAKIN',JSON.stringify(weatherData));
+    localStorage.setItem('Vicodin',JSON.stringify(forecastData));
 }
