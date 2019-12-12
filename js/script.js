@@ -11,7 +11,27 @@ let temp = document.getElementById('temp');
 let cityName = document.getElementById('cityName');
 let tempLow = document.getElementById('tempLow');
 let tempHigh = document.getElementById('tempHigh');
-let dateTime= document.getElementById('dateTime');
+let temp1 = document.getElementById('temp1');
+let cityName1 = document.getElementById('cityName1');
+let tempLow1 = document.getElementById('tempLow1');
+let tempHigh1 = document.getElementById('tempHigh1');
+let temp2 = document.getElementById('temp2');
+let cityName2 = document.getElementById('cityName2');
+let tempLow2 = document.getElementById('tempLow2');
+let tempHigh2 = document.getElementById('tempHigh2');
+let temp3 = document.getElementById('temp3');
+let cityName3 = document.getElementById('cityName3');
+let tempLow3 = document.getElementById('tempLow3');
+let tempHigh3 = document.getElementById('tempHigh3');
+let temp4 = document.getElementById('temp4');
+let cityName4 = document.getElementById('cityName4');
+let tempLow4 = document.getElementById('tempLow4');
+let tempHigh4 = document.getElementById('tempHigh4');
+let temp5 = document.getElementById('temp5');
+let cityName5 = document.getElementById('cityName5');
+let tempLow5 = document.getElementById('tempLow5');
+let tempHigh5 = document.getElementById('tempHigh5');
+let dateTime= document.getElementById('dateTime5');
 let weatherData = [];
 let forecastData = [];
 let populateW=document.getElementById('populateW');
@@ -85,15 +105,14 @@ function fivedayCast(URL){
         if (this.readyState == 4 && this.status == 200) {
             let myArr = JSON.parse(this.responseText);
 
-            // let obj = {
-            //     name:myArr.name,
-            //     temp:myArr.main.temp,
-            //     temp_min:myArr.main.temp_min,
-            //     temp_max:myArr.main.temp_max,
-            //     // weatherIcon:myArr.weather.icon
-            //     url: URL
-            // }
-            //forecastData.push(obj);
+            let obj = {
+                name:myArr.name,
+                temp:myArr.list[0].main.temp,
+                temp_min:myArr.list[0].main.temp_low,
+                temp_max:myArr.list[0].main.temp_max,
+                url: URL
+            }
+            forecastData.push(obj);
             saveData();
             getForecast(myArr);
         }
@@ -145,7 +164,11 @@ function getCity(URL) {
 
 function getForecast(info){
     console.log(info);
-    
+    temp1.innerText=`Temperature: ${info.list[0].main.temp}`;
+    tempLow1.innerText=info.list[0].main.temp_min;
+    tempHigh1.innerText=info.list[0].main.temp_max;
+    cityName1.innerText=`City: ${info.city.name}`;
+
 
 }
 
