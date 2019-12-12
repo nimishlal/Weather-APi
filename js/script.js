@@ -169,6 +169,26 @@ function getForecast(info){
     tempHigh1.innerText=info.list[0].main.temp_max;
     cityName1.innerText=`City: ${info.city.name}`;
 
+    temp2.innerText=`Temperature: ${info.list[7].main.temp}`;
+    tempLow2.innerText=info.list[7].main.temp_min;
+    tempHigh2.innerText=info.list[7].main.temp_max;
+    cityName2.innerText=`City: ${info.city.name}`;
+
+    temp3.innerText=`Temperature: ${info.list[14].main.temp}`;
+    tempLow3.innerText=info.list[14].main.temp_min;
+    tempHigh3.innerText=info.list[14].main.temp_max;
+    cityName3.innerText=`City: ${info.city.name}`;
+
+    temp4.innerText=`Temperature: ${info.list[21].main.temp}`;
+    tempLow4.innerText=info.list[21].main.temp_min;
+    tempHigh4.innerText=info.list[21].main.temp_max;
+    cityName4.innerText=`City: ${info.city.name}`;
+
+    temp5.innerText=`Temperature: ${info.list[33].main.temp}`;
+    tempLow5.innerText=info.list[33].main.temp_min;
+    tempHigh5.innerText=info.list[33].main.temp_max;
+    cityName5.innerText=`City: ${info.city.name}`;
+
 
 }
 
@@ -186,11 +206,23 @@ function getWeather(info) {
         let header1 = document.createElement('h1');
         let button = document.createElement('button')
         let day1Pick = document.getElementById('day1Pick');
+        let day2Pick = document.getElementById('day2Pick');
+        let day3Pick = document.getElementById('day3Pick');
+        let day4Pick = document.getElementById('day4Pick');
+        let day5Pick = document.getElementById('day5Pick');
+        let day6Pick = document.getElementById('day6Pick');
+        
     
         row.setAttribute('class','row');
         col1.setAttribute('class', 'col-lg-12 col-sm-12 border bgCity');
         button.setAttribute('class','btn btn-danger float-right mt-2')
         day1Pick.setAttribute('src','http://openweathermap.org/img/wn/'+info.weather[0].icon+'@2x.png');
+        day2Pick.setAttribute('src','http://openweathermap.org/img/wn/'+info.weather[0].icon+'@2x.png');
+        day3Pick.setAttribute('src','http://openweathermap.org/img/wn/'+info.weather[0].icon+'@2x.png');
+        day4Pick.setAttribute('src','http://openweathermap.org/img/wn/'+info.weather[0].icon+'@2x.png');
+        day5Pick.setAttribute('src','http://openweathermap.org/img/wn/'+info.weather[0].icon+'@2x.png');
+        day6Pick.setAttribute('src','http://openweathermap.org/img/wn/'+info.weather[0].icon+'@2x.png');
+
     
         header1.innerText=`${info.name}`
     
