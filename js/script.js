@@ -39,22 +39,16 @@ let dateZone3 = document.getElementById('dateZone3');
 let dateZone4 = document.getElementById('dateZone4');
 let dateZone5 = document.getElementById('dateZone5');
 let currentDay = new Date();
-
-if(weatherData.length==0){
-    deleteItem();
-}
-if(forecastData.length==0){
-    deleteItem();
-}
-else if (localStorage.getItem('ANAKIN')) {
+if (localStorage.getItem('ANAKIN')) {
     weatherData = JSON.parse(localStorage.getItem('ANAKIN'));
     console.log(weatherData);
     getCity(weatherData[weatherData.length - 1].url);
 }
-else if (localStorage.getItem('Vicodin')) {
+if (localStorage.getItem('Vicodin')) {
     forecastData = JSON.parse(localStorage.getItem('Vicodin'));
     console.log(forecastData);
     loadCast(forecastData[forecastData.length - 1].url);
+
 }
 
 
@@ -272,6 +266,7 @@ function getWeather(info) {
             weatherData.splice(i, 1);
             forecastData.splice(i, 1);
             saveData();
+            console.log(weatherData);
             this.parentElement.parentElement.parentElement.remove();
         });
 
@@ -287,8 +282,30 @@ function saveData() {
     localStorage.setItem('ANAKIN', JSON.stringify(weatherData));
     localStorage.setItem('Vicodin', JSON.stringify(forecastData));
 }
+// function emptyArray(){
+//     if(weatherData[0]===false){
+//         console.log("Hello");
+//     } else {
+//         console.log('hello123');
+//     }
+// }
 
- function deleteItem() {
-     localStorage.removeItem('ANAKIN');
-     localStorage.removeItem('Vicodin');
-}
+// if (weatherData.length === 0) {
+//     console.log('Hello');
+// }
+// else {
+//     console.log('hello');
+// }
+// if (weatherData.length === 0) {
+//     deleteItem();
+
+// }
+// if (forecastData.length === 0) {
+//     deleteItem();
+//     //console.log("this ran");
+
+// }
+// function deleteItem() {
+//     localStorage.removeItem('ANAKIN');
+//     localStorage.removeItem('Vicodin');
+// }
