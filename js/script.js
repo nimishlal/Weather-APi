@@ -40,16 +40,25 @@ let dateZone4 = document.getElementById('dateZone4');
 let dateZone5 = document.getElementById('dateZone5');
 let currentDay = new Date();
 
-if (localStorage.getItem('ANAKIN')) {
+if(weatherData.length==0){
+    deleteItem();
+}
+if(forecastData.length==0){
+    deleteItem();
+}
+else if (localStorage.getItem('ANAKIN')) {
     weatherData = JSON.parse(localStorage.getItem('ANAKIN'));
     console.log(weatherData);
     getCity(weatherData[weatherData.length - 1].url);
 }
-if (localStorage.getItem('Vicodin')) {
+else if (localStorage.getItem('Vicodin')) {
     forecastData = JSON.parse(localStorage.getItem('Vicodin'));
     console.log(forecastData);
     loadCast(forecastData[forecastData.length - 1].url);
 }
+
+
+
 ////-------------------------------------------//
 //-------------Add Event Listeners------------//
 getW.addEventListener('click', function (e) {
@@ -96,7 +105,7 @@ function fivedayCast(URL) {
             let myArr = JSON.parse(this.responseText);
 
             let obj = {
-                dates:myArr.list[0].dt_txt,
+                //dates: myArr.list[0].dt_txt,
                 url: URL
             }
             console.log(obj);
@@ -179,27 +188,27 @@ function loadCast(URL) {
 }
 
 function getForecast(info) {
-let dates = [];
- dates = info.list[0].dt_txt;
-let date = dates.split(" ");
-    temp1.innerText = `Temperature: ${info.list[0].main.temp}`;
-    tempLow1.innerText = `Min Temperature: ${info.list[0].main.temp_min}`;
-    tempHigh1.innerText = `Max Temperature: ${info.list[0].main.temp_max}`;
+    let dates = [];
+    dates = info.list[0].dt_txt;
+    let date = dates.split(" ");
+    temp1.innerText = `Temperature: ${info.list[1].main.temp}`;
+    tempLow1.innerText = `Min Temperature: ${info.list[1].main.temp_min}`;
+    tempHigh1.innerText = `Max Temperature: ${info.list[1].main.temp_max}`;
     cityName1.innerText = `City: ${info.city.name}`;
 
-    temp2.innerText = `Temperature: ${info.list[8].main.temp}`;
-    tempLow2.innerText = `Min Temperature: ${info.list[8].main.temp_min}`;
-    tempHigh2.innerText = `Max Temperature: ${info.list[8].main.temp_max}`;
+    temp2.innerText = `Temperature: ${info.list[9].main.temp}`;
+    tempLow2.innerText = `Min Temperature: ${info.list[9].main.temp_min}`;
+    tempHigh2.innerText = `Max Temperature: ${info.list[9].main.temp_max}`;
     cityName2.innerText = `City: ${info.city.name}`;
 
-    temp3.innerText = `Temperature: ${info.list[16].main.temp}`;
-    tempLow3.innerText = `Min Temperature: ${info.list[16].main.temp_min}`;
-    tempHigh3.innerText = `Max Temperature:${info.list[16].main.temp_max}`;
+    temp3.innerText = `Temperature: ${info.list[17].main.temp}`;
+    tempLow3.innerText = `Min Temperature: ${info.list[17].main.temp_min}`;
+    tempHigh3.innerText = `Max Temperature:${info.list[17].main.temp_max}`;
     cityName3.innerText = `City: ${info.city.name}`;
 
-    temp4.innerText = `Temperature: ${info.list[24].main.temp}`;
-    tempLow4.innerText = `Min Temperature: ${info.list[24].main.temp_min}`;
-    tempHigh4.innerText = `Max Temperature:${info.list[24].main.temp_max}`;
+    temp4.innerText = `Temperature: ${info.list[25].main.temp}`;
+    tempLow4.innerText = `Min Temperature: ${info.list[25].main.temp_min}`;
+    tempHigh4.innerText = `Max Temperature:${info.list[25].main.temp_max}`;
     cityName4.innerText = `City: ${info.city.name}`;
 
     temp5.innerText = `Temperature: ${info.list[37].main.temp}`;
@@ -207,11 +216,11 @@ let date = dates.split(" ");
     tempHigh5.innerText = `Max Temperature:${info.list[37].main.temp_max}`;
     cityName5.innerText = `City: ${info.city.name}`;
 
-    dateZone1.innerText = date[0];//info.list[0].dt_txt.spilt(" ");
-    dateZone2.innerText=info.list[8].dt_txt.split(" ")[0];
-    dateZone3.innerText=info.list[16].dt_txt.split(" ")[0];
-    dateZone4.innerText=info.list[24].dt_txt.split(" ")[0];
-    dateZone5.innerText=info.list[37].dt_txt.split(" ")[0];
+    dateZone1.innerText = info.list[1].dt_txt.split(" ")[0];//date[0];//info.list[0].dt_txt.spilt(" ");
+    dateZone2.innerText = info.list[9].dt_txt.split(" ")[0];
+    dateZone3.innerText = info.list[17].dt_txt.split(" ")[0];
+    dateZone4.innerText = info.list[25].dt_txt.split(" ")[0];
+    dateZone5.innerText = info.list[37].dt_txt.split(" ")[0];
 }
 
 function getWeather(info) {
@@ -220,7 +229,7 @@ function getWeather(info) {
     tempLow.innerText = `Min Temperature: ${info.main.temp_min}`;
     tempHigh.innerText = `Max Temperature: ${info.main.temp_max}`;
     cityName.innerText = `City: ${info.name}`;
-    dateZone.innerText=currentDay;
+    dateZone.innerText = currentDay;
 
     populateW.innerHTML = '';
     for (let i = 0; i < weatherData.length; i++) {
@@ -277,4 +286,9 @@ function getWeather(info) {
 function saveData() {
     localStorage.setItem('ANAKIN', JSON.stringify(weatherData));
     localStorage.setItem('Vicodin', JSON.stringify(forecastData));
+}
+
+ function deleteItem() {
+     localStorage.removeItem('ANAKIN');
+     localStorage.removeItem('Vicodin');
 }
